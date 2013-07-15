@@ -1,0 +1,9 @@
+window.localStorage
+	Hash Table with key and value (both of them shuould be string)
+	API
+		setItem(k,v)
+		v getItem(k)
+		removeItem(k)
+		key(i)
+		length
+		clear()

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+	(function(){
+		window.addEventListener("DOMContentLoaded",function(){
+			document.getElementById("btnDoWork").addEventListener("click",onBtnDoWorkClick);
+		});
+		function onBtnDoWorkClick(){
+			displayMessage("Work Started...");
+			/*setTimeout(function(){
+				doWork();
+				displayMessage("Work Completed");	
+			},1000);*/
+			doWork(function(){ 
+				displayMessage("Work Completed");});
+		}
+		function displayMessage(msg){
+			document.getElementById("divMessages").innerHTML += msg + "<br/>";
+		}
+		function doWork(completeCallback){
+			var limit = 100000, iterationCount = 0;
+			function workChunk(){
+				for(var j=0;j<1000;j++)
+					for(var k=0;k<100;k++)
+					{}
+				iterationCount++;
+				if (iterationCount < limit) {
+					setTimeout(workChunk,1); 
+				}
+				else {
+					completeCallback();
+				}
+
+			}
+			setTimeout(workChunk,100); 
+		}
+	})();
+	</script>
+</head>
+<body>
+	<input type="button" value="Do Work" id="btnDoWork"><input type="text" name="" id="">
+	<div id="divMessages"></div>
+</body>
+</html>
