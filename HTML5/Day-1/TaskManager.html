@@ -39,6 +39,8 @@
 			var newTaskItem = document.createElement("li");
 			newTaskItem.innerHTML = task.taskName;
 			newTaskItem.setAttribute("data-taskId",task.taskId);
+			if (task.isCompleted)
+				newTaskItem.classList.add("completed");
 			newTaskItem.addEventListener("click",onTaskItemClick);
 			document.getElementById("ulTaskList").appendChild(newTaskItem);
 		}
@@ -49,6 +51,8 @@
 			} else {
 				this.classList.add("completed");
 			}
+			var taskId = this.getAttribute("data-taskId");
+			taskStorage.toggleCompletion(taskId);
 		}
 
 		function onBtnRemoveCompletedTasksClick(){
