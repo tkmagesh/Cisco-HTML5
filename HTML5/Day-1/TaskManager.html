@@ -10,28 +10,35 @@
 		font-style: italic;
 	}
 	</style>
+	<script src="taskStorage.js"></script>
 	<script>
 	(function(){
-		var taskStorage = window.localStorage;
-
+		var taskStorage = getTaskStorage(); 
 		window.addEventListener("DOMContentLoaded",function(){
 			var taskList = document.getElementById("ulTaskList");
 			document.getElementById("btnAddTask").addEventListener("click",onBtnAddTaskClick);
 			document.getElementById("btnRemoveCompletedTasks").addEventListener("click",onBtnRemoveCompletedTasksClick);
-			for(var i=0;i<taskList.children.length;i++){
-				taskList.children[i].addEventListener("click",onTaskItemClick);
+			var tasks = taskStorage.getTasks();
+			for(var index in tasks){
+				var task = tasks[index];
+				addTaskToUI(task);
 			}
+			
 		});
 
 		function onBtnAddTaskClick(){
-			var task = document.getElementById("txtTask").value;
+			var taskName = document.getElementById("txtTask").value;
 			//For storage
-			var newTaskId = new Date().getTime().toString();
-			taskStorage.setItem(newTaskId,task);
+			var newTask = taskStorage.saveTask(taskName);
+			addTaskToUI(newTask);
+			
+		}
 
+		
+		function addTaskToUI(task){
 			var newTaskItem = document.createElement("li");
-			newTaskItem.innerHTML = task;
-			newTaskItem.setAttribute("data-taskId",newTaskId);
+			newTaskItem.innerHTML = task.taskName;
+			newTaskItem.setAttribute("data-taskId",task.taskId);
 			newTaskItem.addEventListener("click",onTaskItemClick);
 			document.getElementById("ulTaskList").appendChild(newTaskItem);
 		}
@@ -50,12 +57,13 @@
 				var taskItem = taskList.children[i];
 				if (taskItem.classList.contains("completed") ){
 					var taskIdToRemove = taskItem.getAttribute("data-taskId");
-					console.log(taskIdToRemove);
-					taskStorage.removeItem(taskIdToRemove);
+					taskStorage.removeTask(taskIdToRemove );
 					taskList.removeChild(taskItem);
 				}
 			}
 		}
+
+		
 	})()
 
 	</script>
