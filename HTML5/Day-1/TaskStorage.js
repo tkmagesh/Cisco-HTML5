@@ -11,16 +11,16 @@ function getTaskStorage(){
 			return tasks;
 	}
 	function saveTask (taskName){
-			var newTaskId = new Date().getTime().toString();
-			storage.setItem(newTaskId,taskName);
-			return {taskId : newTaskId, taskName : taskName};
-		}
-	 function removeTask(taskId){
-			storage.removeItem(taskId);
-		}
+		var newTaskId = new Date().getTime().toString();
+		storage.setItem(newTaskId,taskName);
+		return {taskId : newTaskId, taskName : taskName};
+	}
+	function removeTask(taskId){
+		storage.removeItem(taskId);
+	}
 	function  length(){
-			return storage.length;
-		}
+		return storage.length;
+	}
 	return {
 		getTasks : getTasks,
 		saveTask : saveTask,
