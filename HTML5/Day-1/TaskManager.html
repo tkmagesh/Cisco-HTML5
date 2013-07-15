@@ -12,6 +12,8 @@
 	</style>
 	<script>
 	(function(){
+		var taskStorage = window.localStorage;
+
 		window.addEventListener("DOMContentLoaded",function(){
 			var taskList = document.getElementById("ulTaskList");
 			document.getElementById("btnAddTask").addEventListener("click",onBtnAddTaskClick);
@@ -23,8 +25,13 @@
 
 		function onBtnAddTaskClick(){
 			var task = document.getElementById("txtTask").value;
+			//For storage
+			var newTaskId = new Date().getTime().toString();
+			taskStorage.setItem(newTaskId,task);
+
 			var newTaskItem = document.createElement("li");
 			newTaskItem.innerHTML = task;
+			newTaskItem.setAttribute("data-taskId",newTaskId);
 			newTaskItem.addEventListener("click",onTaskItemClick);
 			document.getElementById("ulTaskList").appendChild(newTaskItem);
 		}
@@ -42,6 +49,9 @@
 			for(var i=taskList.children.length-1;i>=0;i--){
 				var taskItem = taskList.children[i];
 				if (taskItem.classList.contains("completed") ){
+					var taskIdToRemove = taskItem.getAttribute("data-taskId");
+					console.log(taskIdToRemove);
+					taskStorage.removeItem(taskIdToRemove);
 					taskList.removeChild(taskItem);
 				}
 			}
@@ -57,8 +67,7 @@
 	<input type="button" value="Add Task" id="btnAddTask">
 	<input type="button" value="Remove Completed" id="btnRemoveCompletedTasks">
 	<ul id="ulTaskList">
-		<li>Task - 1</li>
-		<li>Task - 2</li>
+		
 	</ul>
 </body>
 </html>
