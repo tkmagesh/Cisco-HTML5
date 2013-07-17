@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS3 Demo</title>
+	<style>
+	#divLogo{
+		height : 300px;
+		width : 300px;
+		margin-left: 300px;
+		margin-top: 150px;
+		border: 5px solid black;
+		font-size: 2em;
+		text-align: center;
+		line-height: 300px;
+		border-radius: 30px;
+		background: linear-gradient(red 0%, red 33%, white 33%, white 67%,green 67%, green 100% );
+
+		box-shadow : 0px 0px 0px 10px  gray,0px 0px 0px 15px blue;
+		-webkit-transition : -webkit-transform 1s;
+	}
+
+	#divLogo:hover{
+		-webkit-transform : rotate(45deg) scale(0.5,0.5);
+		-moz-transform : rotate(45deg);
+		-o-transform : rotate(45deg);
+		-ms-transform : rotate(45deg);
+		transform : rotate(45deg);
+	}
+	</style>
+</head>
+<body>
+	<div id="divLogo">Cisco</div>
+</body>
+</html>
